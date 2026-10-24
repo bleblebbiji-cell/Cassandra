@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassandra</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka (Playful Comic Title/Button) & Patrick Hand (Cute Handwriting) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Comic Font Assignments */
+        .font-comic { font-family: 'Fredoka', cursive, sans-serif; }
+        .font-handwritten { font-family: 'Patrick Hand', cursive, sans-serif; }
+
+        /* Custom Background with Fallback Halftone Pattern */
+        .custom-bg {
+            background-image: url('Background2.jpg'), 
+                radial-gradient(#93c5fd 20%, transparent 20%), 
+                linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            background-size: cover, 20px 20px, cover;
+            background-position: center;
+            background-repeat: no-repeat, repeat, no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Bold Cartoon Outlines & Hard Pop Shadows */
+        .comic-border {
+            border: 4px solid #1e293b;
+        }
+
+        .comic-shadow {
+            box-shadow: 6px 6px 0px #1e293b;
+        }
+
+        .comic-shadow-lg {
+            box-shadow: 10px 10px 0px #1e293b;
+        }
+
+        /* Vibrant Blue Comic Pop-Art Button */
+        .comic-btn-blue {
+            background-color: #3b82f6; /* Vivid Blue */
+            border: 4px solid #1e293b;
+            box-shadow: 6px 6px 0px #1e293b;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .comic-btn-blue:hover {
+            background-color: #2563eb; /* Deeper Blue on hover */
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px #1e293b;
+        }
+
+        .comic-btn-blue:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0px #1e293b;
+        }
+
+        /* Wiggle Animation for Sparkles/Badges */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.08); }
+        }
+        .animate-wiggle {
+            animation: wiggle 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen text-slate-800 font-comic relative flex flex-col justify-center items-center p-4 selection:bg-blue-300 selection:text-slate-900">
+
+    <!-- Centered Comic Letter Card Container -->
+    <main class="w-full max-w-sm sm:max-w-md bg-amber-50/95 comic-border comic-shadow-lg rounded-3xl p-8 sm:p-10 text-center relative flex flex-col items-center justify-center backdrop-blur-sm">
+
+
+        <!-- Decorative Sparkle Sticker (Top Right) -->
+        <div class="absolute -top-5 -right-3 bg-yellow-300 comic-border w-10 h-10 rounded-full flex items-center justify-center text-slate-900 text-lg transform rotate-12 comic-shadow">
+            ✦
+        </div>
+
+        <!-- Cute Envelope Icon -->
+        <div class="w-20 h-20 rounded-2xl bg-blue-100 comic-border comic-shadow flex items-center justify-center text-blue-600 mb-6 text-3xl transform hover:rotate-6 transition-transform">
+            <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 tracking-wide">
+            A Letter For You
+        </h1>
+
+        <!-- Birthday Message -->
+        <div class="bg-white/80 comic-border rounded-2xl p-4 sm:p-5 mb-8 comic-shadow text-left transform -rotate-1">
+            <p class="font-handwritten text-xl sm:text-2xl text-slate-700 leading-relaxed text-center">
+                Happy Birthday Cassandra! 🎂<br>
+                Enjoy your day with a blessed morning, and may your life blooms as ever &lt;3
+            </p>
+        </div>
+
+        <!-- Vibrant Blue Comic "Open" Button -> page2.html -->
+        <a href="page2.html" class="comic-btn-blue text-white font-comic text-2xl font-bold tracking-wider px-10 py-3.5 rounded-2xl inline-flex items-center gap-3 group w-full justify-center">
+            <span>Open</span>
+            <i class="fa-solid fa-arrow-right text-lg group-hover:translate-x-2 transition-transform"></i>
+        </a>
+
+
+    </main>
+
+</body>
+</html>

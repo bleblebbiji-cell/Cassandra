@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Pictures & Gifts - Page 4</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        .font-comic-heading { font-family: 'Fredoka', cursive, sans-serif; }
+        .font-comic-body { font-family: 'Patrick Hand', cursive, sans-serif; }
+
+        /* Custom Background with Gingham/Picnic pattern over soft sky gradient */
+        .custom-bg {
+            background-color: #fef3c7;
+            background-image: 
+                radial-gradient(#fb7185 1.5px, transparent 1.5px),
+                linear-gradient(135deg, #a5f3fc 0%, #fef08a 50%, #fbcfe8 100%);
+            background-size: 24px 24px, 100% 100%;
+            background-attachment: fixed;
+        }
+
+        /* Checkered Gingham Picnic Blanket / Table Surface */
+        .picnic-table-mat {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(90deg, rgba(244, 114, 182, 0.25) 50%, transparent 50%),
+                linear-gradient(rgba(244, 114, 182, 0.25) 50%, transparent 50%);
+            background-size: 40px 40px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 8px 8px 0px #0f172a;
+        }
+
+        /* Comic Shadow Helpers */
+        .comic-shadow-lg { box-shadow: 8px 8px 0px #0f172a; }
+        .comic-shadow-md { box-shadow: 5px 5px 0px #0f172a; }
+        .comic-shadow-btn {
+            box-shadow: 4px 4px 0px #0f172a;
+        }
+        .comic-shadow-btn:hover {
+            box-shadow: 6px 6px 0px #0f172a;
+            transform: translate(-2px, -2px);
+        }
+        .comic-shadow-btn:active {
+            box-shadow: 1px 1px 0px #0f172a;
+            transform: translate(3px, 3px);
+        }
+
+        /* Interactive Playground Area */
+        .interactive-playground {
+            touch-action: none;
+            user-select: none;
+        }
+
+        /* Plain Transparent Draggable Cutout Items */
+        .draggable-item {
+            position: absolute;
+            cursor: grab;
+            transition: transform 0.15s ease, filter 0.15s ease;
+            will-change: transform, left, top;
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .draggable-item:hover {
+            transform: scale(1.05);
+        }
+
+        .draggable-item:active {
+            cursor: grabbing;
+            transform: scale(1.08) !important;
+            z-index: 999 !important;
+        }
+
+        .transparent-cutout-img {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            mix-blend-mode: multiply;
+            object-fit: contain;
+            filter: drop-shadow(4px 6px 8px rgba(15, 23, 42, 0.25));
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .animate-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1) rotate(2deg); }
+            50% { transform: scale(1.05) rotate(-2deg); }
+        }
+        .animate-note-pulse { animation: pulse-subtle 2s infinite ease-in-out; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 8px; border: 2px solid #0f172a; }
+
+        .modal-pop {
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen text-slate-900 font-comic-body relative flex flex-col justify-start items-center p-3 sm:p-6 overflow-x-hidden">
+
+    <!-- Top Navigation Header -->
+    <header class="fixed top-4 left-4 right-4 z-50 flex justify-between items-center max-w-5xl mx-auto w-full pointer-events-none">
+        <a href="page3.html" class="pointer-events-auto bg-amber-300 hover:bg-amber-400 border-4 border-slate-900 font-comic-heading text-slate-900 px-4 py-2 rounded-2xl comic-shadow-btn text-sm font-bold flex items-center gap-2 transition-all">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+        </a>
+    </header>
+
+    <!-- Main Picnic Scene Container -->
+    <main class="w-full max-w-5xl mx-auto mt-14 mb-8 flex flex-col items-center">
+
+        <!-- Title Banner -->
+        <div class="text-center mb-4">
+            <h1 class="font-comic-heading text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-wide flex items-center justify-center gap-3 flex-wrap drop-shadow-sm">
+                <span>Happy</span>
+                <span class="inline-block animate-wiggle">1️⃣8️⃣</span>
+            </h1>
+            <p class="text-slate-700 font-bold text-base sm:text-lg mt-1">
+                Enjoy being happy and legal ate cas :)
+            </p>
+        </div>
+
+        <!-- Picnic Table Surface (Interactive Canvas Area with 5 Floating Pictures) -->
+        <div class="w-full relative min-h-[580px] sm:min-h-[640px] picnic-table-mat border-4 border-slate-900 rounded-3xl p-4 sm:p-6 overflow-hidden interactive-playground" id="picnicTable">
+            
+            <!-- Cute Picnic Table Decor Cutouts -->
+            <div class="absolute top-3 left-4 opacity-80 pointer-events-none flex gap-2 text-2xl sm:text-3xl">
+                <span>🍓</span><span>🧃</span><span>🧁</span>
+            </div>
+            <div class="absolute bottom-3 right-4 opacity-80 pointer-events-none flex gap-2 text-2xl sm:text-3xl">
+                <span>🥪</span><span>🍎</span><span>🌼</span>
+            </div>
+
+            <!-- CENTRAL FEATURED PHOTO -->
+            <div class="draggable-item" style="top: 25px; left: 50%; transform: translateX(-50%) rotate(-1deg); z-index: 20;" id="featuredPhoto">
+                <img src="Photo.jpg" alt="Featured Photo" class="w-56 sm:w-72 h-auto transparent-cutout-img pointer-events-auto" onerror="this.src='https://placehold.co/600x450/transparent/3b82f6?text=Photo.jpg'">
+            </div>
+
+            <!-- SET 1: DRAGGABLE GIFT 1 -->
+            <div class="draggable-item" style="top: 450px; left: 80px; transform: rotate(-7deg); z-index: 10;" id="gift1">
+                <img src="gift1.png" alt="Gift Photo 1" class="w-28 sm:w-36 h-auto transparent-cutout-img" onerror="this.src='https://placehold.co/300x300/transparent/f472b6?text=gift1.png'">
+            </div>
+
+            <!-- SET 2: DRAGGABLE GIFT 2 -->
+            <div class="draggable-item" style="top: 290px; right: 70px; transform: rotate(6deg); z-index: 11;" id="gift2">
+                <img src="gift2.png" alt="Gift Photo 2" class="w-28 sm:w-36 h-auto transparent-cutout-img" onerror="this.src='https://placehold.co/300x300/transparent/38bdf8?text=gift2.png'">
+            </div>
+
+            <!-- SET 3: DRAGGABLE GIFT 3 -->
+            <div class="draggable-item" style="bottom: 45px; left: 30px; transform: rotate(5deg); z-index: 12;" id="gift3">
+                <img src="gift3.png" alt="Gift Photo 3" class="w-28 sm:w-36 h-auto transparent-cutout-img" onerror="this.src='https://placehold.co/300x300/transparent/fde047?text=gift3.png'">
+            </div>
+
+            <!-- SET 4: DRAGGABLE GIFT 4 -->
+            <div class="draggable-item" style="bottom: 50px; right: 35px; transform: rotate(-6deg); z-index: 13;" id="gift4">
+                <img src="gift4.png" alt="Gift Photo 4" class="w-28 sm:w-36 h-auto transparent-cutout-img" onerror="this.src='https://placehold.co/300x300/transparent/34d399?text=gift4.png'">
+            </div>
+
+            <!-- SET 5: DRAGGABLE GIFT 5 -->
+            <div class="draggable-item" style="top: 230px; left: 25px; transform: rotate(-4deg); z-index: 14;" id="gift5">
+                <img src="gift5.jpg" alt="Gift Photo 5" class="w-28 sm:w-36 h-auto transparent-cutout-img" onerror="this.src='https://placehold.co/300x300/transparent/818cf8?text=gift5.jpg'">
+            </div>
+
+            <!-- CLICKABLE SECRET NOTE LETTER -->
+            <div class="draggable-item animate-note-pulse cursor-pointer" style="top: 100px; right: 30px; z-index: 30;" id="draggableSecretNote">
+                <div class="relative bg-amber-100 border-4 border-slate-900 rounded-2xl p-3 sm:p-4 text-center w-36 sm:w-44 comic-shadow-md transition-transform hover:scale-105" onclick="openSecretNoteModal(event)">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-rose-500 border-2 border-slate-900 rounded-full flex items-center justify-center text-white text-xs shadow">
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </div>
+                    <div class="mt-1">
+                        <span class="text-3xl block mb-1">💌</span>
+                        <p class="font-comic-heading text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                            Something
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECRET NOTE MODAL POPUP -->
+        <div id="secretNoteModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            <div class="relative w-full max-w-lg bg-amber-50 border-4 border-slate-900 rounded-3xl p-5 sm:p-8 comic-shadow-lg modal-pop my-auto">
+                <button onclick="closeSecretNoteModal()" class="absolute -top-3 -right-3 bg-rose-400 hover:bg-rose-500 text-slate-900 border-3 border-slate-900 w-10 h-10 rounded-full font-black text-lg flex items-center justify-center comic-shadow-btn transition-transform z-20">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-dashed border-slate-300 pb-3 mb-4">
+                    <div class="w-10 h-10 bg-amber-300 border-2 border-slate-900 rounded-xl flex items-center justify-center text-slate-900 font-bold text-lg">
+                        <i class="fa-solid fa-envelope-open-text text-rose-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-comic-heading text-xl font-bold text-slate-900">A Secret Picnic Note 🌸</h3>
+                        <p class="text-xs font-semibold text-slate-600">Just for you!</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border-3 border-slate-900 rounded-2xl p-4 sm:p-5 custom-scrollbar max-h-[55vh] overflow-y-auto comic-shadow-btn relative">
+                    <p class="font-comic-heading text-rose-600 font-bold text-xl mb-3">
+                        Hello Friend! 🎉
+                    </p>
+                    <p class="text-slate-800 text-lg font-semibold leading-relaxed mb-4">
+                        Thank you for taking a moment to look through this little picnic memory gallery! Each photo on this table holds a bright memory and lots of smiles.
+                    </p>
+                    <p class="text-slate-800 text-lg font-semibold leading-relaxed mb-4">
+                        I hope your day is as sweet as strawberries and filled with endless laughter, warmth, and joy! Keep blossoming and spreading your wonderful light everywhere you go. ✨💖
+                    </p>
+                    <div class="pt-3 border-t-2 border-slate-200 text-right">
+                        <p class="font-comic-heading font-extrabold text-rose-600 text-lg">
+                            With Love & Hugs, <br>
+                            Your Friend ❤
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-5 flex justify-center">
+                    <button onclick="closeSecretNoteModal()" class="bg-sky-400 hover:bg-sky-500 border-3 border-slate-900 font-comic-heading font-bold text-slate-900 px-6 py-2.5 rounded-2xl comic-shadow-btn transition-all flex items-center gap-2 text-base">
+                        <span>Close Note</span>
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Navigation Button -->
+        <div class="w-full flex justify-between items-center mt-6 px-2">
+            <a href="page3.html" class="bg-amber-300 hover:bg-amber-400 text-slate-900 border-4 border-slate-900 font-comic-heading text-base font-bold px-5 py-2.5 rounded-2xl comic-shadow-btn inline-flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Previous Page</span>
+            </a>
+
+            <button onclick="triggerConfetti()" class="bg-rose-400 hover:bg-rose-500 text-slate-900 border-4 border-slate-900 font-comic-heading text-base font-bold px-5 py-2.5 rounded-2xl comic-shadow-btn inline-flex items-center gap-2 transition-all">
+                <span>Celebrate</span>
+                <i class="fa-solid fa-sparkles"></i>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Drag & Drop Logic -->
+    <script>
+        let highestZIndex = 50;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const draggables = document.querySelectorAll('.draggable-item');
+            draggables.forEach(item => {
+                initDraggable(item);
+            });
+        });
+
+        function initDraggable(elmnt) {
+            let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+            elmnt.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startX = e.clientX;
+                startY = e.clientY;
+                initialLeft = elmnt.offsetLeft;
+                initialTop = elmnt.offsetTop;
+
+                highestZIndex++;
+                elmnt.style.zIndex = highestZIndex;
+
+                const onMouseMove = (moveEvent) => {
+                    const dx = moveEvent.clientX - startX;
+                    const dy = moveEvent.clientY - startY;
+                    elmnt.style.left = (initialLeft + dx) + 'px';
+                    elmnt.style.top = (initialTop + dy) + 'px';
+                };
+
+                const onMouseUp = () => {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                };
+
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+
+            elmnt.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    initialLeft = elmnt.offsetLeft;
+                    initialTop = elmnt.offsetTop;
+
+                    highestZIndex++;
+                    elmnt.style.zIndex = highestZIndex;
+
+                    const onTouchMove = (moveEvent) => {
+                        if (moveEvent.touches.length === 1) {
+                            moveEvent.preventDefault();
+                            const touchMove = moveEvent.touches[0];
+                            const dx = touchMove.clientX - startX;
+                            const dy = touchMove.clientY - startY;
+                            elmnt.style.left = (initialLeft + dx) + 'px';
+                            elmnt.style.top = (initialTop + dy) + 'px';
+                        }
+                    };
+
+                    const onTouchEnd = () => {
+                        document.removeEventListener('touchmove', onTouchMove);
+                        document.removeEventListener('touchend', onTouchEnd);
+                    };
+
+                    document.addEventListener('touchmove', onTouchMove, { passive: false });
+                    document.addEventListener('touchend', onTouchEnd);
+                }
+            }, { passive: true });
+        }
+
+        function openSecretNoteModal(e) {
+            if (e) e.stopPropagation();
+            const modal = document.getElementById('secretNoteModal');
+            modal.classList.remove('hidden');
+            triggerConfetti();
+        }
+
+        function closeSecretNoteModal() {
+            const modal = document.getElementById('secretNoteModal');
+            modal.classList.add('hidden');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('secretNoteModal');
+            if (event.target === modal) {
+                closeSecretNoteModal();
+            }
+        };
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 70,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#38bdf8', '#f472b6', '#fde047', '#a78bfa', '#34d399']
+            });
+        }
+    </script>
+</body>
+</html>
